@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Board from './Board'
-import {calculateWinner} from '../compute'
+import {calculateWinner, optimalMove} from '../compute'
 
 class Game extends Component {
     constructor(props) {
@@ -38,6 +38,15 @@ class Game extends Component {
         });
     }
 
+    autoTurn(squares) {
+        const board = squares.slice();
+        const player = this.state.xIsNext ? 'X' : 'O';
+        const move = optimalMove(board, player);
+        if (move || move === 0) {
+            this.handleClick(move);
+        }
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -68,6 +77,9 @@ class Game extends Component {
                         squares={current.squares}
                         onClick={(i) => this.handleClick(i)}
                     />
+                    <button className="auto-turn" onClick={() => this.autoTurn(current.squares)}>
+                        Auto Turn
+                    </button>
                 </div>
                 <div className="game-info">
                     <div>{status}</div>

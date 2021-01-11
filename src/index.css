@@ -45,6 +45,14 @@ ol, ul {
   flex-direction: row;
 }
 
+.game-board {
+  text-align: center;
+}
+
+.auto-turn {
+  margin-top: 10px;
+}
+
 .game-info {
   margin-left: 20px;
 }
